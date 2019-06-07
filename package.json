@@ -1,0 +1,17 @@
+{
+	"name": "wpesetup",
+	"version": "0.0.1",
+	"description": "setup a new wp engine site and install",
+	"preferGlobal": "true",
+	"bin": {
+		"wpesetup": "wpesetup.js"
+	},
+	"author": "Tim Gieseking",
+	"engines": {
+		"node": "*"
+	},
+	"devDependencies": {
+		"node-fetch": "^2.6.0",
+		"prompt-promise": "^1.0.3"
+	}
+}
