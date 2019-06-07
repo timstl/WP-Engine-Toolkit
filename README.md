@@ -6,7 +6,7 @@ The command `wpesetup` will create a Site, Environment, and Install in your WPEn
 
 ## Installation
 
-1.  Setup environment variables for WPENGINE_PASSWORD, WPENGINE_USER_ID, and WPENGINE_ACCOUNTID. [Reference WPEngine API.]([https://wpengineapi.com/)
+1.  Setup environment variables for WPENGINE_PASSWORD, WPENGINE_USER_ID, and WPENGINE_ACCOUNTID. [Reference WPEngine API.](https://wpengineapi.com/)
 2.  Run `npm install`
 3.  Run `npm link` to create commands
 4.  Run `wpesetup` to begin site setup.
