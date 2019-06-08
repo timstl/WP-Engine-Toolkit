@@ -2,6 +2,8 @@
 const WPEAccess = require("./lib/wpeaccess");
 const colors = require("colors");
 
+// IMPORT CONFIG, USE FOR ACCOUNT IDS
+
 /**
  * Verify we have a valid authorization string for API calls.
  */

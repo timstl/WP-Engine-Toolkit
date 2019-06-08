@@ -1,0 +1,15 @@
+{
+	"wpengine": {
+		"default_wp_user": "",
+		"accounts": [{ "id": "" }]
+	},
+	"plugins": {
+		"enabled": false,
+		"private_key": "/Users/username/.ssh/wpengine_rsa",
+		"activate": [],
+		"migratedb": {
+			"enabled": false,
+			"license": ""
+		}
+	}
+}

@@ -2,6 +2,7 @@
 node_ssh = require("node-ssh");
 
 // Variables removed for security.
+// IMPORT CONFIG
 
 ssh = new node_ssh();
 ssh.connect({
