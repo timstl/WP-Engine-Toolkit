@@ -2,6 +2,8 @@
 
 A toolkit for managing sites using the WP Engine API. Currently supports creating a new site, environment, and install, or pulling account information.
 
+<img src="https://github.com/timstl/WP-Engine-Toolkit/raw/master/lib/img/screenshot.png" alt="terminal screenshot" width="600" />
+
 ## Installation
 
 1.  Setup environment variables for WPENGINE_PASSWORD and WPENGINE_USER_ID. [Reference WP Engine API.](https://wpengineapi.com/)
