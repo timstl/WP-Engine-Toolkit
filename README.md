@@ -1,22 +1,22 @@
-# WPEngine API Toolkit
+# WP Engine API Toolkit
 
-A toolkit for managing sites using the WPEngine API. This toolkit currently contains one command: `wpesetup`
-
-The command `wpesetup` will create a Site, Environment, and Install in your WPEngine account. It will then monitor the install and wait for it to be active before ending the prompt.
+A toolkit for managing sites using the WP Engine API. Currently supports creating a new site, environment, and install, or pulling account information.
 
 ## Installation
 
-1.  Setup environment variables for WPENGINE_PASSWORD, WPENGINE_USER_ID, and WPENGINE_ACCOUNTID. [Reference WPEngine API.](https://wpengineapi.com/)
+1.  Setup environment variables for WPENGINE_PASSWORD and WPENGINE_USER_ID. [Reference WP Engine API.](https://wpengineapi.com/)
 2.  Run `npm install`
 3.  Run `npm link` to create commands
-4.  Run `wpesetup` to begin site setup.
+4.  Run `wpe` to launch toolkit
+
+The first time you run `wpe` you will be prompoted to create a wpeaccounts.json file, which contains your account IDs. Once this file is created `wpe` will give you 3 options: setup, accounts, quit.
 
 ## Known Issues
 
 -   Must have an account that supports Sites and Environments.
+-   Only supports 1 account ID at this time.
 
 ## To-do
 
--   Add command to quickly retrieve account ID. Consider not storing account ID in env variables.
 -   When install becomes active, trigger additional setup such as password reset and legacy staging site creation.
 -   Make modular so this can be included as part of a dev / staging automated setup.
