@@ -9,7 +9,7 @@ A toolkit for managing sites using the WP Engine API. Currently supports creatin
 3.  Run `npm link` to create commands
 4.  Run `wpe` to launch toolkit
 
-The first time you run `wpe` you will be prompoted to create a wpeaccounts.json file, which contains your account IDs. Once this file is created `wpe` will give you 3 options: setup, accounts, quit.
+The first time you run `wpe` you will be prompted to create a wpeaccounts.json file, which contains your account IDs. Once this file is created `wpe` will give you 3 options: setup, accounts, quit.
 
 ## Known Issues
 
@@ -19,4 +19,3 @@ The first time you run `wpe` you will be prompoted to create a wpeaccounts.json 
 ## To-do
 
 -   When install becomes active, trigger additional setup such as password reset and legacy staging site creation.
--   Make modular so this can be included as part of a dev / staging automated setup.
