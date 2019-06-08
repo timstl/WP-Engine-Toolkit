@@ -4,7 +4,8 @@
 	"description": "setup a new wp engine site and install",
 	"preferGlobal": "true",
 	"bin": {
-		"wpe": "wpe.js"
+		"wpe": "wpe.js",
+		"wpessh": "wpessh.js"
 	},
 	"author": "Tim Gieseking",
 	"engines": {
@@ -13,6 +14,8 @@
 	"devDependencies": {
 		"node-fetch": "^2.6.0",
 		"prompt-promise": "^1.0.3",
-		"colors": "^1.3.3"
+		"colors": "^1.3.3",
+		"open": "^6.3.0",
+		"node-ssh": "^6.0.0"
 	}
 }
