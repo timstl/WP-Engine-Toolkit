@@ -57,7 +57,7 @@ async function createaccountjson() {
 function checkaccountids() {
 	if (
 		!wpeaccountids ||
-		wpeaccountids.accounts.length == 0 ||
+		wpeaccountids.accounts.length === 0 ||
 		!wpeaccountids.accounts[0].id
 	) {
 		console.log(
@@ -75,7 +75,38 @@ function checkaccountids() {
  * Start our WPE prompt.
  */
 function startwpe() {
-	console.log("starting!");
+	const prompt = require("prompt-promise");
+
+	console.log("\r\nWhat would you like to do?\r\n".yellow.bold);
+	console.log(
+		"setup".blue.bold,
+		"[creates a new site, environment, and install]"
+	);
+	console.log(
+		"accounts".blue.bold,
+		"[lists accounts you have access to (limit: 100)]"
+	);
+	console.log("quit, q".blue.bold, "[exit WP Engine Toolkit]\r\n");
+
+	prompt("command: ")
+		.then(async function wpego(val) {
+			if (val === "accounts") {
+				const WPEAccounts = require("./lib/wpeaccounts");
+				const wpeaccounts = new WPEAccounts(wpeauth);
+				await wpeaccounts.consoleaccounts();
+				prompt.finish();
+			} else if (val === "setup") {
+			} else if (val === "q" || val === "quit") {
+				prompt.finish();
+			} else {
+				startwpe();
+				return false;
+			}
+		})
+		.catch(function rejected(err) {
+			console.log("error:", err.stack);
+			prompt.finish();
+		});
 }
 
 /**
