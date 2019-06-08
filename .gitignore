@@ -1,3 +1,5 @@
 node_modules
 package-lock.json
 wpeaccounts.json
+wpessh.js
+config.js
