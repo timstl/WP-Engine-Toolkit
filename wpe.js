@@ -20,7 +20,7 @@ if (!wpeauth) {
  *
  * Only supports 1 account right now but could support multiple in the future.
  */
-let wpeaccountids = null;
+let wpe_account_id = null;
 
 /**
  * This function will generate a JSON object to put in our wpeaccounts.json file.
@@ -66,6 +66,8 @@ function checkaccountids() {
 		);
 
 		return createaccountjson();
+	} else {
+		wpe_account_id = wpeaccountids.accounts[0].id;
 	}
 
 	return true;
@@ -96,6 +98,10 @@ function startwpe() {
 				await wpeaccounts.consoleaccounts();
 				prompt.finish();
 			} else if (val === "setup") {
+				const WPESetup = require("./lib/wpesetup");
+				const wpesetup = new WPESetup(wpeauth, wpe_account_id);
+				await wpesetup.dosetup();
+				//prompt.finish();
 			} else if (val === "q" || val === "quit") {
 				prompt.finish();
 			} else {
