@@ -17,7 +17,3 @@ The first time you run `wpe` you will be prompted to create a wpeaccounts.json f
 
 -   Must have an account that supports Sites and Environments.
 -   Only supports 1 account ID at this time.
-
-## To-do
-
--   When install becomes active, trigger additional setup such as password reset and legacy staging site creation.
