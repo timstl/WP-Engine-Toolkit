@@ -4,11 +4,12 @@
 		"accounts": [{ "id": "" }]
 	},
 	"plugins": {
-		"enabled": false,
+		"enabled": true,
 		"private_key": "/Users/username/.ssh/wpengine_rsa",
+		"sites_path": "/home/wpe-user/sites/",
 		"activate": [],
 		"migratedb": {
-			"enabled": false,
+			"enabled": true,
 			"license": ""
 		}
 	}

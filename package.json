@@ -18,7 +18,6 @@
 		"colors": "^1.3.3",
 		"open": "^6.3.0",
 		"node-ssh": "^6.0.0",
-		"secure-random-password": "^0.1.0",
-		"fetch-cookie": "^0.7.2"
+		"secure-random-password": "^0.1.0"
 	}
 }
