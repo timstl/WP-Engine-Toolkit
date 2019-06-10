@@ -3,14 +3,19 @@
 		"default_wp_user": "",
 		"accounts": [{ "id": "" }]
 	},
-	"plugins": {
-		"enabled": true,
-		"private_key": "/Users/username/.ssh/wpengine_rsa",
-		"sites_path": "/home/wpe-user/sites/",
-		"activate": [],
-		"migratedb": {
+	"setup": {
+		"plugins": {
 			"enabled": true,
-			"license": ""
+			"private_key": "/Users/username/.ssh/wpengine_rsa",
+			"sites_path": "/home/wpe-user/sites/",
+			"activate": [],
+			"migratedb": {
+				"enabled": true,
+				"license": ""
+			}
+		},
+		"legacy_staging": {
+			"enabled": true
 		}
 	}
 }
