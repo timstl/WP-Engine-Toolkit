@@ -4,7 +4,8 @@
 	"description": "setup a new wp engine site and install",
 	"preferGlobal": "true",
 	"bin": {
-		"wpe": "wpe.js"
+		"wpe": "wpe.js",
+		"wpessh": "wpessh-dev.js"
 	},
 	"author": "Tim Gieseking",
 	"engines": {
