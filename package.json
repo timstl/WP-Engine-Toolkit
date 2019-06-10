@@ -1,5 +1,5 @@
 {
-	"name": "wpesetup",
+	"name": "wpe",
 	"version": "0.0.1",
 	"description": "setup a new wp engine site and install",
 	"preferGlobal": "true",
