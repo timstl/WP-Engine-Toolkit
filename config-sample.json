@@ -1,7 +1,11 @@
 {
 	"wpengine": {
 		"default_wp_user": "",
-		"accounts": [{ "id": "" }]
+		"accounts": [
+			{
+				"id": ""
+			}
+		]
 	},
 	"setup": {
 		"plugins": {
@@ -10,7 +14,7 @@
 			"sites_path": "/home/wpe-user/sites/",
 			"activate": [],
 			"migratedb": {
-				"enabled": false,
+				"enabled": true,
 				"license": ""
 			}
 		},
@@ -20,7 +24,7 @@
 		"local": {
 			"enabled": false,
 			"projects_dir": "/Users/username/projects/",
-			"sites_base_url": "http://127.0.0.1:8080/",
+			"sites_base_url": "127.0.0.1:8080/",
 			"vagrant": {
 				"projects_dir": "/var/www/html/public/",
 				"ssh": {
@@ -30,8 +34,8 @@
 					"private_key": "/Users/username/.ssh/id_rsa"
 				},
 				"mysql": {
-					"user": "root",
-					"password": "vagrant"
+					"user": "",
+					"password": ""
 				}
 			},
 			"gitignore": "https://gist.githubusercontent.com/timstl/285a43a80d03c37d0687419c7a680406/raw/d54af6b0895508cd5e21efd2b2323590d7298972/.gitignore",
@@ -46,7 +50,13 @@
 				"activate": [
 					"https://github.com/timstl/basetheme-helper-plugin/archive/master.zip",
 					"https://github.com/timstl/basetheme-modify-core-blocks/archive/master.zip"
-				]
+				],
+				"migratedb": {
+					"remote_base_path": "/nas/content/staging/"
+				}
+			},
+			"sourcetree": {
+				"enabled": true
 			}
 		}
 	}
