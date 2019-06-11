@@ -3,16 +3,22 @@
 /**
  * Test file used for testing new features before integration.
  */
+const WPEConfig = require("./lib/wpeconfig");
+const wpeconfig = new WPEConfig();
 
-const project_dir = "/Users/timgieseking/projects/fabric/Sites/";
+const colors = require("colors");
+
+const project_dir = wpeconfig.getlocalprojectsdir();
+const vagrant_projects_dir = wpeconfig.getvagrantprojectsdir();
 const site_name = "testsite";
-const gitignore =
-	"https://gist.githubusercontent.com/timstl/285a43a80d03c37d0687419c7a680406/raw/d54af6b0895508cd5e21efd2b2323590d7298972/.gitignore";
+const site_title = "Test Site";
+const gitignore = wpeconfig.getlocalgitignore();
+const node_ssh = require("node-ssh");
 
 (async () => {
 	const fs = require("fs");
 	const dir = project_dir + site_name;
-
+	console.log(dir);
 	if (fs.existsSync(dir)) {
 		console.log("Sorry, that directory already exists.");
 		return false;
@@ -42,12 +48,41 @@ const gitignore =
 
 		let gitignore_text = await res.text();
 
-		fs.writeFile(gitignore_file, gitignore_text, function() {
+		fs.writeFile(gitignore_file, gitignore_text, async function() {
 			console.log("gitignore created");
 
 			/**
 			 * SSH to Vagrant machine
 			 */
+			// Make sure the database is unique.
+			const database = site_name + "_" + Date.now();
+			const vagrant_site_dir = vagrant_projects_dir + site_name + "/";
+
+			const passgen = require("secure-random-password");
+			const wp_pass = passgen.randomPassword({
+				length: 20,
+				characters:
+					"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#%^?*_-~+|{}"
+			});
+
+			const wp_theme = wpeconfig.getlocaltheme();
+			let wp_plugins = wpeconfig.getplugins();
+			let wp_local_plugins = wpeconfig.getlocalplugins();
+
+			if (!wp_plugins) {
+				wp_plugins = [];
+			}
+
+			if (wp_local_plugins) {
+				wp_plugins.concat(wp_local_plugins);
+			}
+
+			let wpmgdb_license = null;
+
+			if (wpeconfig.migratedbenabled()) {
+				wpmgdb_license = wpeconfig.getmigratedblicense();
+			}
+
 			const ssh_commands = [
 				/*
 				Create a database
@@ -60,7 +95,123 @@ const gitignore =
 				Activate other plugins
 				Push new database to staging
 				*/
+				'mysql -u root -pvagrant -e "create database ' +
+					database +
+					';"',
+				"wp core download",
+				"wp config create --dbname=" +
+					database +
+					" --dbuser=" +
+					wpeconfig.getlocalmysqluser() +
+					" --dbpass=" +
+					wpeconfig.getlocalmysqlpassword() +
+					" --extra-php=\"define( 'WP_DEBUG', true );\ndefine( 'WP_DEBUG_LOG', true );\ndefine( 'WP_DEBUG_DISPLAY', false );\n\"",
+				"wp core install  --skip-email --url=" +
+					wpeconfig.getlocalsitesurl() +
+					" --admin_user=" +
+					wpeconfig.getdefaultwpuser() +
+					" --admin_password=" +
+					wp_pass +
+					" --admin_email=" +
+					wpeconfig.getdefaultwpuser() +
+					' --title="' +
+					site_title +
+					'"'
 			];
+
+			if (wp_plugins) {
+				ssh_commands.push(
+					"wp plugin install --activate --force " +
+						wp_plugins.join(" ")
+				);
+
+				if (wpmgdb_license) {
+					ssh_commands.push(
+						"wp migratedb setting update license " + wpmgdb_license
+					);
+				}
+
+				ssh_commands.push("wp plugin update --all");
+
+				if (wpmgdb_license) {
+					ssh_commands.push(
+						"wp migratedb setting get connection-key"
+					);
+				}
+
+				// pull migrate db pro from staging HERE if possible
+			}
+
+			if (wp_theme.url) {
+				ssh_commands.push(
+					"wp theme install " + wp_theme.url + " --force"
+				);
+
+				if (wp_theme.match_site_name.enabled === true) {
+					ssh_commands.push(
+						"mv " +
+							vagrant_site_dir +
+							"wp-content/themes/" +
+							wp_theme.match_site_name.base_slug +
+							"/ " +
+							vagrant_site_dir +
+							"wp-content/themes/" +
+							site_name +
+							"/"
+					);
+
+					ssh_commands.push(
+						"sed -i 's/Basetheme/" +
+							site_title +
+							"/g' " +
+							vagrant_site_dir +
+							"wp-content/themes/" +
+							site_name +
+							"/style.css"
+					);
+				}
+
+				ssh_commands.push("wp theme activate " + site_name);
+			}
+
+			/**
+			 * SSH
+			 */
+			const ssh = new node_ssh();
+
+			try {
+				await ssh.connect({
+					host: wpeconfig.getvagrantsshserver(),
+					port: wpeconfig.getvagrantsshport(),
+					username: wpeconfig.getvagrantsshusername(),
+					privateKey: wpeconfig.getvagrantsshprivatekey()
+				});
+				console.log("SSH Connected.".blue);
+			} catch (e) {
+				console.log(e);
+				return false;
+			}
+
+			try {
+				await ssh.execCommand(ssh_commands.join(" && "), {
+					cwd: vagrant_site_dir,
+					onStdout(chunk) {
+						console.log(chunk.toString("utf8"));
+					},
+					onStderr(chunk) {
+						console.log(chunk.toString("utf8"));
+					}
+				});
+			} catch (e) {
+				console.log(e);
+				return false;
+			}
+
+			try {
+				await ssh.dispose();
+			} catch (e) {
+				console.log(e);
+			}
 
 			/**
 			 * Locally
@@ -69,12 +220,20 @@ const gitignore =
 			 * create develop branch
 			 * switch to develop branch
 			 * remove master branch
+			 * add remote staging branch
 			 */
 
 			simpleGit.add("*", function() {
 				simpleGit.commit("initial commit", function() {
 					simpleGit.checkoutLocalBranch("develop", function() {
-						simpleGit.deleteLocalBranch("master", function() {});
+						simpleGit.deleteLocalBranch("master", function() {
+							simpleGit.addRemote(
+								"wpengine-staging",
+								"git@git.wpengine.com:staging/" +
+									site_name +
+									".git"
+							);
+						});
 					});
 				});
 			});
@@ -86,7 +245,7 @@ const gitignore =
 			 */
 			if (
 				fs.existsSync(
-					project_dir + site_name + "/wp-content/themes/basetheme/"
+					project_dir + site_name + "/wp-content/themes/" + site_name
 				)
 			) {
 				const { exec } = require("child_process");
@@ -94,7 +253,9 @@ const gitignore =
 					"cd " +
 						project_dir +
 						site_name +
-						"/wp-content/themes/basetheme/ && npm install",
+						"/wp-content/themes/" +
+						site_name +
+						"/ && npm install",
 					(err, stdout, stderr) => {
 						if (err) {
 							// node couldn't execute the command

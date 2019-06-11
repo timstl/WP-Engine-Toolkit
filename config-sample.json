@@ -10,7 +10,7 @@
 			"sites_path": "/home/wpe-user/sites/",
 			"activate": [],
 			"migratedb": {
-				"enabled": true,
+				"enabled": false,
 				"license": ""
 			}
 		},
@@ -18,7 +18,36 @@
 			"enabled": true
 		},
 		"local": {
-			"enabled": false
+			"enabled": false,
+			"projects_dir": "/Users/username/projects/",
+			"sites_base_url": "http://127.0.0.1:8080/",
+			"vagrant": {
+				"projects_dir": "/var/www/html/public/",
+				"ssh": {
+					"server": "127.0.0.1",
+					"port": "2222",
+					"username": "vagrant",
+					"private_key": "/Users/username/.ssh/id_rsa"
+				},
+				"mysql": {
+					"user": "root",
+					"password": "vagrant"
+				}
+			},
+			"gitignore": "https://gist.githubusercontent.com/timstl/285a43a80d03c37d0687419c7a680406/raw/d54af6b0895508cd5e21efd2b2323590d7298972/.gitignore",
+			"theme": {
+				"url": "https://github.com/timstl/basetheme-scss/archive/master.zip",
+				"match_site_name": {
+					"enabled": true,
+					"base_slug": "basetheme-scss"
+				}
+			},
+			"plugins": {
+				"activate": [
+					"https://github.com/timstl/basetheme-helper-plugin/archive/master.zip",
+					"https://github.com/timstl/basetheme-modify-core-blocks/archive/master.zip"
+				]
+			}
 		}
 	}
 }
