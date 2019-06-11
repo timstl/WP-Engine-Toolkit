@@ -16,6 +16,9 @@
 		},
 		"legacy_staging": {
 			"enabled": true
+		},
+		"local": {
+			"enabled": false
 		}
 	}
 }
