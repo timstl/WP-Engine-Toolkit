@@ -56,7 +56,7 @@
 				}
 			},
 			"sourcetree": {
-				"enabled": true
+				"enabled": false
 			}
 		}
 	}
