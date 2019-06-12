@@ -1,6 +1,8 @@
-# WP Engine API Toolkit
+# WP Engine Toolkit
 
-A toolkit for managing sites using the WP Engine API. Currently supports creating a new site, environment, and install, or pulling account information. This setup process automates tasks that we normally would be doing manually. While a config is included to allow for some flexibility, you may find it necessary to fork and modify to fit your process.
+_NOTE:_ WP Engine has released their own DevKit that may suit your needs: https://developer.wpengine.com/devkit/
+
+_WP Engine Toolkit_ is a set of command line tools used to manage sites using the WP Engine API + SSH/WP-CLI + Fetch. Currently supports creating a new site, environment, and install, or pulling account information. This setup process automates tasks that we normally would be doing manually. While a config is included to allow for some flexibility, you may find it necessary to fork and modify to fit your process.
 
 <img  src="https://github.com/timstl/WP-Engine-Toolkit/raw/master/lib/img/screenshot.png"  alt="terminal screenshot"  width="600"  />
 
@@ -16,9 +18,9 @@ A toolkit for managing sites using the WP Engine API. Currently supports creatin
 1. Setup the WP Engine API and your SSH key as outlined above.
 2. Run `npm install`
 3. Run `npm link` to create commands
-4. Run `wpe` to launch toolkit
+4. Run `wpetools` to launch toolkit
 
-The first time you run `wpe` your WP Engine account IDs will be displayed, and you will be prompted to add them to your config.json. After this is complete `wpe` will give you 3 options: setup, accounts, quit.
+The first time you run `wpetools` your WP Engine account IDs will be displayed, and you will be prompted to add them to your config.json. After this is complete `wpetools` will give you 3 options: setup, accounts, quit.
 
 ## Commands
 
@@ -46,7 +48,7 @@ In order to use this tool you must have a valid config.json file. A sample is in
 
 -   wpengine
     -   **default_wp_user:** The default username used by WP Engine when a new WP install is created. Typically your account login email.
-    -   **accounts:** An array of objects in key:string format\* (Example: "accounts": [{"id": "XXXXXX-XXXXXX-XXXXX-XXXXX"}]). `wpe` will assist you in finding your account ID the first time it is able to connect to the WP Engine API.
+    -   **accounts:** An array of objects in key:string format\* (Example: "accounts": [{"id": "XXXXXX-XXXXXX-XXXXX-XXXXX"}]). `wpetools` will assist you in finding your account ID the first time it is able to connect to the WP Engine API.
 -   setup
     -   plugins
         -   **enabled:** (true or false) Must enable and provide array of plugins to install
