@@ -44,8 +44,22 @@ The `accounts` command outputs JSON object that includes all account IDs that yo
 
 In order to use this tool you must have a valid config.json file. A sample is included.
 
--   wpengine - **default_wp_user:** The default username used by WP Engine when a new WP install is created. Typically your account login email. - **accounts:** An array of objects in key:string format\* (Example: "accounts": [{"id": "XXXXXX-XXXXXX-XXXXX-XXXXX"}]). `wpe` will assist you in finding your account ID the first time it is able to connect to the WP Engine API.
--   setup - plugins - **enabled:** (true or false) Must enable and provide array of plugins to install - **private_key:** Your local private key used to access WP Engine via SSH. Your private key cannot require a password. - **sites_path:** The path to sites on your WP Engine server. (Typically: "/home/wpe-user/sites/") - **activate:** An array of plugins to install and activate via WP-CLI. WP-CLI supports both plugin slugs and URLs. You can host plugins that aren't in the WordPress repository on a server and provide URLs to zip files in this array. - migratedb - **enabled:** (true or false). In addition to enabling, you must also include Migrate DB Pro in the _setup.plugins.activate_ array above, along with any add-ons you'd like to install. - **license:** Your Migrate DB Pro license key. - legacy_staging - **enabled:** (true or false). If enabled, deployment of your legacy staging environment will be automatically triggered. - local - **enabled:** (true or false). These settings are experimental and not recommended for use at this time.
+-   wpengine
+    -   **default_wp_user:** The default username used by WP Engine when a new WP install is created. Typically your account login email.
+    -   **accounts:** An array of objects in key:string format\* (Example: "accounts": [{"id": "XXXXXX-XXXXXX-XXXXX-XXXXX"}]). `wpe` will assist you in finding your account ID the first time it is able to connect to the WP Engine API.
+-   setup
+    -   plugins
+        -   **enabled:** (true or false) Must enable and provide array of plugins to install
+        -   **private_key:** Your local private key used to access WP Engine via SSH. Your private key cannot require a password.
+        -   **sites_path:** The path to sites on your WP Engine server. (Typically: "/home/wpe-user/sites/")
+        -   **activate:** An array of plugins to install and activate via WP-CLI. WP-CLI supports both plugin slugs and URLs. You can host plugins that aren't in the WordPress repository on a server and provide URLs to zip files in this array.
+        -   migratedb
+            -   **enabled:** (true or false). In addition to enabling, you must also include Migrate DB Pro in the _setup.plugins.activate_ array above, along with any add-ons you'd like to install.
+            -   **license:** Your Migrate DB Pro license key.
+    -   legacy_staging
+        -   **enabled:** (true or false). If enabled, deployment of your legacy staging environment will be automatically triggered.
+    -   local
+        -   **enabled:** (true or false). These settings are experimental and not recommended for use at this time.
 
 ## To-do
 
