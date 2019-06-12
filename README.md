@@ -34,7 +34,7 @@ The `setup` command will perform several tasks:
 6.  Activates WP Migrate DB Pro license and outputs connection string (optional).
 7.  Resets primary WordPress user password.
 8.  Deploys Legacy Staging (optional).
-9.  Sets up your local environment (optional, and unlikely to work without forking).
+9.  Sets up your local environment (optional/experimental; unlikely to work without forking).
 
 ### accounts
 
